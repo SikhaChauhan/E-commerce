@@ -29,5 +29,17 @@ router.post('/products', async (req,res)=>{
     res.redirect('/products'); // get request on /products to display the newly added item
 });
 
+router.get('/products/:id', async (req,res)=>{
+    let {id} = req.params;
+    let foundProduct = await Product.findById(id);
+    res.render('products/show', {foundProduct});
+});
+
+
+router.get('/products/:id/edit', async (req,res)=>{
+    let {id} = req.params;
+    let foundProduct = await Product.findById(id);
+    res.render('products/edit', {foundProduct});
+})
 
 module.exports = router;
