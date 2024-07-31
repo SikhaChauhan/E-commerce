@@ -1,0 +1,19 @@
+<!-- layout (repeating part of the code) kaha se liya hai vo btaya hai -->
+<% layout('layouts/boilerPlate') %>
+<%- include('../partials/navbar') %>
+
+    <div class="row">
+        <% for(let item of products){ %>
+            <div class="col-lg-4 mt-3">
+                <div class="card shadow mx-auto" style="width: 18rem;">
+                <img src="<%=item.img%>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h3 class="card-name"><%=item.name%></h3>
+                    <h5 class="card-price"><%=item.price%></h5>
+                    <p class="card-text"><%=item.desc%></p>
+                    <a href="#" class="btn btn-info">View</a>
+                </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
