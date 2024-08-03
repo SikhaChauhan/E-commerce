@@ -29,17 +29,34 @@ router.post('/products', async (req,res)=>{
     res.redirect('/products'); // get request on /products to display the newly added item
 });
 
+// to show a particular product
 router.get('/products/:id', async (req,res)=>{
     let {id} = req.params;
-    let foundProduct = await Product.findById(id);
+    let foundProduct = await Product.findById(id).populate('reviews');
     res.render('products/show', {foundProduct});
 });
 
-
+// form to edit the product
 router.get('/products/:id/edit', async (req,res)=>{
     let {id} = req.params;
     let foundProduct = await Product.findById(id);
     res.render('products/edit', {foundProduct});
-})
+});
+
+// to actually edit the data in db
+router.patch('/products/:id', async(req,res)=>{
+    let {id} = req.params;
+    let {name, img, price, desc} = req.body;
+    await Product.findByIdAndUpdate( id , {name, img, price, desc});
+    res.redirect(`/products/${id}`);
+});
+
+// to delete the product
+router.delete('/products/:id', async(req,res)=>{
+    let {id} = req.params;
+    await Product.findByIdAndDelete(id);
+    res.redirect('/products');
+});
+
 
 module.exports = router;

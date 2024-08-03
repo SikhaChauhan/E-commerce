@@ -4,7 +4,10 @@ const port = 1212;
 const path = require('path');
 const seedDB = require('./seed');
 const ejsMate = require('ejs-mate');
+const methodOverride = require('method-override');
 const productRoutes = require('./routes/product'); // harr incoming request pe chalega
+const reviewRoutes = require('./routes/review');
+
 
 
 // DB connection
@@ -28,11 +31,13 @@ app.set('views', path.join(__dirname, 'views')); // Views folder is joined
 
 app.use(express.static(path.join(__dirname,'public'))); // Public folder is joined
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 // Seeding database
 // seedDB();
 
 app.use(productRoutes); // so that harr incoming request ke liye check kara jaaye
+app.use(reviewRoutes);
 
 app.listen(port,()=>{
     console.log(`Server started at port ${port}`);

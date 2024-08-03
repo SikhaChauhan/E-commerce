@@ -21,7 +21,16 @@ const productSchema = new Schema({
     desc: {
         type: String,
         trim: true
-    }
+    },
+    // this is done in order to differentiate the reviews of one product from the other
+    reviews:[
+        {
+            // type is defined of object id which is of other model
+            type: mongoose.Schema.Types.ObjectId,
+            // which Model/Schema we are talking about
+            ref: 'Review'
+        }
+    ]
 });
 
 let Product = mongoose.model('Product', productSchema);
